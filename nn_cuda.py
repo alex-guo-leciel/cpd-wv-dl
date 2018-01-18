@@ -118,7 +118,7 @@ for test_line in test_read:
         test_inputs[0][k] = float(test_array[2+k])
     #images, labels = data
     #print(test_inputs)
-    test_outputs = net(Variable(test_inputs))
+    test_outputs = net(Variable(test_inputs.cuda()))
     #print(test_outputs)
     _, predicted = torch.max(test_outputs.data, 1)
     total += 1

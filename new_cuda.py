@@ -39,7 +39,7 @@ net.cuda()
 criterion = nn.CrossEntropyLoss()
 
 #select training algorithm
-optimizer = optim.Adam(net.parameters(), lr=0.00004)
+optimizer = optim.Adam(net.parameters(), lr=0.00002)
 
 #indicate training & testing set size
 training_size = 6000
@@ -51,7 +51,7 @@ data_read = data_file.readlines()
 #set up batch size
 BATCH_SIZE=60
 
-for epoch in range(500):    # loop over the dataset multiple times
+for epoch in range(4000):   # loop over the dataset multiple times
 
     running_loss = 0.0
     for i in range(100):

@@ -51,12 +51,15 @@ data_read = data_file.readlines()
 #set up batch size
 BATCH_SIZE=60
 
+inputs = torch.Tensor(BATCH_SIZE,32)
+labels = torch.LongTensor(BATCH_SIZE)
+inputs.cuda()
+labels.cuda()
+
 for epoch in range(4000):   # loop over the dataset multiple times
 
     running_loss = 0.0
     for i in range(100):
-        inputs = torch.Tensor(BATCH_SIZE,32)
-        labels = torch.LongTensor(BATCH_SIZE)
         for j in range(int(BATCH_SIZE)):
             data_array = data_read[random.randint(0,training_size-1)].split()
             # get the sequential number
@@ -72,14 +75,14 @@ for epoch in range(4000):   # loop over the dataset multiple times
                     inputs[j][k] = float(data_array[2+k])
 
         # wrap them in Variable
-        inputs, labels = Variable(inputs.cuda()), Variable(labels.cuda())
+        inputs, labels = Variable(inputs), Variable(labels)
 
         # zero the parameter gradients
         optimizer.zero_grad()
 
         # forward + backward + optimize
         outputs = net(inputs)
-        loss = criterion(outputs.cuda(), labels.cuda())
+        loss = criterion(outputs, labels)
         loss.backward()
         optimizer.step()
 
